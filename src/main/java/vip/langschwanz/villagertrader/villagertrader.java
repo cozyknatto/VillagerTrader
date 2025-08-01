@@ -179,11 +179,12 @@ public final class villagertrader extends JavaPlugin implements Listener {
             ItemStack ingredient2 = inv.getItem(baseSlot + 2);
             ItemStack result = inv.getItem(baseSlot + 3);
             if (ingredient1 != null && result != null && !ingredient1.getType().isAir() && !result.getType().isAir()) {
-                MerchantRecipe recipe = new MerchantRecipe(result, 9999);
+                MerchantRecipe recipe = new MerchantRecipe(result, 10); // Normal max uses
                 recipe.addIngredient(ingredient1);
                 if (ingredient2 != null && !ingredient2.getType().isAir()) {
                     recipe.addIngredient(ingredient2);
                 }
+                recipe.setExperienceReward(true); // Enable experience rewards
                 newTrades.add(recipe);
             }
 
@@ -192,18 +193,24 @@ public final class villagertrader extends JavaPlugin implements Listener {
             ItemStack ingredient2_2 = inv.getItem(baseSlot + 6);
             ItemStack result_2 = inv.getItem(baseSlot + 7);
             if (ingredient1_2 != null && result_2 != null && !ingredient1_2.getType().isAir() && !result_2.getType().isAir()) {
-                MerchantRecipe recipe = new MerchantRecipe(result_2, 9999);
+                MerchantRecipe recipe = new MerchantRecipe(result_2, 10); // Normal max uses
                 recipe.addIngredient(ingredient1_2);
                 if (ingredient2_2 != null && !ingredient2_2.getType().isAir()) {
                     recipe.addIngredient(ingredient2_2);
                 }
+                recipe.setExperienceReward(true); // Enable experience rewards
                 newTrades.add(recipe);
             }
         }
 
         Villager villager = editingVillagers.remove(player.getUniqueId());
         if (villager != null) {
+            // Set the new trades
             villager.setRecipes(newTrades);
+            // Lock the villager to prevent trades from being reset
+            villager.setVillagerLevel(5);
+            villager.setVillagerExperience(250);
+            player.sendMessage(ChatColor.GREEN + "Villager trades have been set and locked to prevent accidental resets!");
         }
     }
 }
