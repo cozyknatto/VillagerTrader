@@ -71,7 +71,6 @@ public final class villagertrader extends JavaPlugin implements Listener {
         if (!player.isSneaking()) return;
 
         if (!tradingEnabled) {
-            player.sendMessage(ChatColor.RED + "Villager trading is currently disabled.");
             return;
         }
 
