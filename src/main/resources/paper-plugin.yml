@@ -1,0 +1,5 @@
+name: villagertrader
+version: '1.0-SNAPSHOT'
+main: vip.langschwanz.villagertrader.villagertrader
+api-version: '1.21'
+
